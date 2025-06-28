@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<!-- saved from url=(0037)http://localhost/SmartFlood/index.php -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Flood Monitor</title>
+
+  <!-- LineIcons -->
+  <link href="./Smart Flood Monitor_files/lineicons.css" rel="stylesheet">
+
+  <!-- Bootstrap5 -->
+  <link href="./Smart Flood Monitor_files/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+  <!-- DataTables CSS -->
+  <link href="./Smart Flood Monitor_files/jquery.dataTables.min.css" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="./Smart Flood Monitor_files/style.css">
+
+  <!-- SheetJS -->
+  <script src="./Smart Flood Monitor_files/xlsx.full.min.js.download"></script>
+</head>
+
+<body>
+    <div class="wrapper d-flex">
+    <!-- Sidebar -->
+    <aside id="sidebar" class="js-sidebar">
+      <div class="h-100 container-sidebar">
+        <div class="sidebar-logo p-4">
+          <a href="http://localhost/SmartFlood/index.php#">Smart Flood</a>
+        </div>
+        <ul class="sidebar-nav list-unstyled">
+          <li class="sidebar-header px-4 py-2">Elements</li>
+          <li class="sidebar-item text-white">
+            <a href="http://localhost/SmartFlood/index.php" class="sidebar-link">
+              <i class="lni lni-grid-alt"></i>
+              <span>Dashboard</span>
+            </a>
+          </li>
+          <li class="sidebar-item">
+            <a href="http://localhost/SmartFlood/profil.php" class="sidebar-link">
+              <i class="lni lni-user"></i>
+              <span>Profil</span>
+            </a>
+          </li>
+          <li class="sidebar-item">
+            <a href="http://localhost/SmartFlood/table.php" class="sidebar-link">
+              <i class="lni lni-layout"></i>
+              <span>Data</span>
+            </a>
+          </li>
+          <li class="sidebar-item">
+            <a href="http://localhost/SmartFlood/settings.php" class="sidebar-link">
+              <i class="lni lni-cog"></i>
+              <span>Settings</span>
+            </a>
+          </li>
+          <li class="sidebar-item">
+            <a href="http://localhost/SmartFlood/cameraESP32Cam.php" class="sidebar-link">
+              <i class="lni lni-video"></i>
+              <span>Camera</span>
+            </a>
+          </li>
+          <li class="sidebar-item">
+            <a href="http://localhost/SmartFlood/dataperDay.php" class="sidebar-link">
+              <i class="lni lni-layers"></i>
+              <span>History</span>
+            </a>
+          </li>
+          <li class="sidebar-item">
+            <a href="http://localhost/SmartFlood/bar_chart.php" class="sidebar-link">
+              <i class="lni lni-graph"></i>
+              <span>Charts</span>
+            </a>
+          </li>
+          <li class="sidebar-item">
+            <a href="http://localhost/SmartFlood/index.php#" class="sidebar-link collapsed has-dropdown" data-bs-target="#auth" data-bs-toggle="collapse" aria-expanded="false">
+              <i class="lni lni-protection"></i>
+              <span>Auth</span>
+            </a>
+            <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+              <li class="sidebar-item">
+                <a href="http://localhost/SmartFlood/login.php" class="sidebar-link">Login</a>
+              </li>
+              <li class="sidebar-item">
+                <a href="http://localhost/SmartFlood/register.php" class="sidebar-link">Register</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="main flex-grow-1">
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand px-3 border-bottom navbar-light bg-light fixed-top" id="navbar">
+        <div class="container-fluid">
+          <button class="btn" id="sidebar-toggle" type="button">
+            <i class="lni lni-menu"></i>
+            <span class="ms-2 d-none d-md-inline fs-5">Dashboard</span>
+          </button>
+          <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+            <div class="input-group">
+              <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch">
+              <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="lni lni-search-alt"></i></button>
+            </div>
+          </form>
+          <div class="ms-auto">
+            <ul class="navbar-nav">
+              <li class="nav-item dropdown">
+                <a href="http://localhost/SmartFlood/index.php#" class="nav-link dropdown-toggle" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <img src="./Smart Flood Monitor_files/profile_671d94cd6234e0.25117811.jpg" class="avatar img-fluid rounded-circle" alt="User Avatar">
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                  <li><a class="dropdown-item" href="http://localhost/SmartFlood/profil.php">Profile</a></li>
+                  <li><a class="dropdown-item" href="http://localhost/SmartFlood/settings.php">Settings</a></li>
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+                  <li><a class="dropdown-item" href="http://localhost/SmartFlood/login.php">Logout</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Content Area -->
+      <main class="content  py-1" id="content">
+        <div class="continer-content row ">
+          <!-- Welcome Card -->
+          <div class="col-12 col-lg-12 mb-4 px-4">
+            <div class="shadow p-4 rounded-4" style="background-image: url(&#39;./img/page-title-bg.jpg&#39;)">
+              <div class="header-db text-center text-white">
+                <div class="mb-3">
+                  <span class="text-header" style="font-size: 1.5rem; font-weight: 600;">Welcome to </span>
+                  <span style="font-size: 1.5rem; font-weight: 600;">
+                    <span class="logo-text" style="font-size: 1.5rem;">Smart Flood Monitor</span> Website
+                  </span>
+                </div>
+                <div class="mb-3">
+                  <p style="font-size: 1.2rem;">Tempat Anda Memonitoring Ketinggian Air</p>
+                  <p style="font-size: 1.2rem;">Untuk Pencegahan Awal Terjadinya Bencana Banjir</p>
+                </div>
+                <!-- <div>
+                  <a href="#" role="button" class="btn btn-warning">View More</a>
+                </div> -->
+              </div>
+            </div>
+          </div>
+
+          <!-- ESP32 CAM PALACE -->
+          <div class="col-12 col-lg-4 m-auto">
+            <div class="cam-monitoring d-flex flex-column justify-content-center align-items-center shadow p-2 rounded-4" style="background-image: url(&#39;./img/page-title-bg.jpg&#39;); height: auto;">
+              <span class="text-white fs-6 fst-italic pb-2">ESP32 CAM MONITORING</span>
+              <a href="http://localhost/SmartFlood/cameraESP32Cam.php" class="btn btn-warning">Click Here To View</a>
+            </div>
+          </div>
+
+          <!-- Charts -->
+          <!-- Charts -->
+          <div class="charts my-4 px-4">
+            <div class="row g-4">
+              <div class="col-12 col-lg-12 mb-3">
+                <div class="shadow p-3 rounded-4 bg-white">
+                  <canvas id="lineChart" style="height: 457px; width: 1863px; display: block; box-sizing: border-box;" width="3726" height="914"></canvas>
+                </div>
+              </div>
+
+              <!-- <div class="col-12 col-lg-6 mb-3">
+                <div class="shadow p-3 rounded-4 bg-white">
+                  <canvas id="barChart" style="height: 300px;"></canvas>
+                </div>
+              </div> -->
+            </div>
+          </div>
+
+
+          <!-- Data Table -->
+          <div class="container-data border shadow rounded-4 bg-warning">
+            <div class="table-header d-flex align-items-center justify-content-between mb-3 px-4" style="background-color: #11009e; padding: .5rem; border-radius: 0.5rem">
+              <div class="text-white fs-5 d-flex align-items-center">
+                <i class="lni lni-layout me-2"></i>
+                <span class="fs-6">Data Sensor</span>
+              </div>
+              <button class="btn btn-success btn-export" onclick="exportToExcel()">Export to Excel</button>
+            </div>
+            <div id="printableArea" class="container-table px-2 table-responsive">
+              <div id="datatables_Simple_wrapper" class="dataTables_wrapper no-footer"><div class="dataTables_length" id="datatables_Simple_length"><label>Show <select name="datatables_Simple_length" aria-controls="datatables_Simple" class=""><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div><div id="datatables_Simple_filter" class="dataTables_filter"><label>Search:<input type="search" class="" placeholder="" aria-controls="datatables_Simple"></label></div><table id="datatables_Simple" class="table table-striped dataTable no-footer" style="width: 100%;" aria-describedby="datatables_Simple_info">
+                <thead>
+                  <tr><th class="sorting sorting_asc" tabindex="0" aria-controls="datatables_Simple" rowspan="1" colspan="1" aria-label="No: activate to sort column descending" style="width: 134px;" aria-sort="ascending">No</th><th class="sorting" tabindex="0" aria-controls="datatables_Simple" rowspan="1" colspan="1" aria-label="Waktu: activate to sort column ascending" style="width: 220px;">Waktu</th><th class="sorting" tabindex="0" aria-controls="datatables_Simple" rowspan="1" colspan="1" aria-label="Tanggal: activate to sort column ascending" style="width: 286px;">Tanggal</th><th class="sorting" tabindex="0" aria-controls="datatables_Simple" rowspan="1" colspan="1" aria-label="Hari: activate to sort column ascending" style="width: 200px;">Hari</th><th class="sorting" tabindex="0" aria-controls="datatables_Simple" rowspan="1" colspan="1" aria-label="Tinggi Air: activate to sort column ascending" style="width: 287px;">Tinggi Air</th><th class="sorting" tabindex="0" aria-controls="datatables_Simple" rowspan="1" colspan="1" aria-label="Kadar Air: activate to sort column ascending" style="width: 286px;">Kadar Air</th><th class="sorting" tabindex="0" aria-controls="datatables_Simple" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending" style="width: 219px;">Status</th></tr>
+                </thead>
+                <tbody>
+                  <!-- Data akan diisi oleh DataTables melalui AJAX -->
+                <tr class="odd"><td class="sorting_1">1</td><td>21:27:23</td><td>2024-10-27</td><td>Minggu</td><td>35 cm</td><td>0 %</td><td>SIAGA IV</td></tr><tr class="even"><td class="sorting_1">2</td><td>21:27:21</td><td>2024-10-27</td><td>Minggu</td><td>35 cm</td><td>0 %</td><td>SIAGA IV</td></tr><tr class="odd"><td class="sorting_1">3</td><td>21:27:16</td><td>2024-10-27</td><td>Minggu</td><td>35 cm</td><td>0 %</td><td>SIAGA IV</td></tr><tr class="even"><td class="sorting_1">4</td><td>21:27:14</td><td>2024-10-27</td><td>Minggu</td><td>35 cm</td><td>0 %</td><td>SIAGA IV</td></tr><tr class="odd"><td class="sorting_1">5</td><td>21:27:11</td><td>2024-10-27</td><td>Minggu</td><td>35 cm</td><td>0 %</td><td>SIAGA IV</td></tr><tr class="even"><td class="sorting_1">6</td><td>21:27:09</td><td>2024-10-27</td><td>Minggu</td><td>35 cm</td><td>0 %</td><td>SIAGA IV</td></tr><tr class="odd"><td class="sorting_1">7</td><td>21:27:06</td><td>2024-10-27</td><td>Minggu</td><td>22 cm</td><td>0 %</td><td>SIAGA IV</td></tr><tr class="even"><td class="sorting_1">8</td><td>21:27:04</td><td>2024-10-27</td><td>Minggu</td><td>20 cm</td><td>0 %</td><td>SIAGA IV</td></tr><tr class="odd"><td class="sorting_1">9</td><td>21:27:01</td><td>2024-10-27</td><td>Minggu</td><td>20 cm</td><td>0 %</td><td>SIAGA IV</td></tr><tr class="even"><td class="sorting_1">10</td><td>21:26:59</td><td>2024-10-27</td><td>Minggu</td><td>16 cm</td><td>0 %</td><td>SIAGA IV</td></tr></tbody>
+              </table><div class="dataTables_info" id="datatables_Simple_info" role="status" aria-live="polite">Showing 1 to 10 of 7,586 entries</div><div class="dataTables_paginate paging_simple_numbers" id="datatables_Simple_paginate"><a class="paginate_button previous disabled" aria-controls="datatables_Simple" aria-disabled="true" role="link" data-dt-idx="previous" tabindex="-1" id="datatables_Simple_previous">Previous</a><span><a class="paginate_button current" aria-controls="datatables_Simple" role="link" aria-current="page" data-dt-idx="0" tabindex="0">1</a><a class="paginate_button " aria-controls="datatables_Simple" role="link" data-dt-idx="1" tabindex="0">2</a><a class="paginate_button " aria-controls="datatables_Simple" role="link" data-dt-idx="2" tabindex="0">3</a><a class="paginate_button " aria-controls="datatables_Simple" role="link" data-dt-idx="3" tabindex="0">4</a><a class="paginate_button " aria-controls="datatables_Simple" role="link" data-dt-idx="4" tabindex="0">5</a><span class="ellipsis">…</span><a class="paginate_button " aria-controls="datatables_Simple" role="link" data-dt-idx="758" tabindex="0">759</a></span><a class="paginate_button next" aria-controls="datatables_Simple" role="link" data-dt-idx="next" tabindex="0" id="datatables_Simple_next">Next</a></div></div>
+            </div>
+          </div>
+      </div></main>
+    </div>
+  </div>
+
+  <!-- jQuery -->
+  <script src="./Smart Flood Monitor_files/jquery-3.6.0.min.js.download"></script>
+
+  <!-- DataTables JS -->
+  <script src="./Smart Flood Monitor_files/jquery.dataTables.min.js.download"></script>
+
+  <!-- Bootstrap JS -->
+  <script src="./Smart Flood Monitor_files/bootstrap.bundle.min.js.download" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+  </script>
+
+  <!-- Chart.js -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script> -->
+  <!-- Chart.js v4 -->
+  <script src="./Smart Flood Monitor_files/chart.js.download"></script>
+
+
+  <!-- JavaScript untuk Auto Refresh DataTable -->
+  <script>
+  $(document).ready(function() {
+    let table = $("#datatables_Simple").DataTable({
+      responsive: true,
+      ordering: true,
+      paging: true,
+      info: true,
+      autoWidth: true,
+      searching: true,
+      ajax: {
+        url: "getData.php",
+        type: "GET",
+        dataSrc: "" // Asumsikan respons adalah array
+      },
+      columns: [{
+          data: 'no'
+        },
+        {
+          data: 'waktu'
+        },
+        {
+          data: 'tanggal'
+        },
+        {
+          data: 'hari'
+        },
+        {
+          data: 'tinggi_air'
+        },
+        {
+          data: 'kadar_air'
+        },
+        {
+          data: 'status'
+        }
+      ]
+    });
+
+    // Set interval untuk me-refresh tabel setiap 10 detik
+    setInterval(function() {
+      table.ajax.reload(null, false); // false agar tetap berada di halaman yang sama
+    }, 10000); // 10000 ms = 10 detik
+  });
+  </script>
+
+  <script>
+  function exportToExcel() {
+    // Ambil data dari tabel
+    var table = document.getElementById('datatables_Simple');
+
+    // Buat instance Workbook dari SheetJS
+    var workbook = XLSX.utils.table_to_book(table, {
+      sheet: "Sheet1"
+    });
+
+    // Simpan file Excel
+    XLSX.writeFile(workbook, 'data_sensor.xlsx');
+  }
+  </script>
+
+
+  <!-- Custom Scripts -->
+  <script src="./Smart Flood Monitor_files/script.js.download"></script>
+  <script src="./Smart Flood Monitor_files/datatable.js.download"></script>
+  <!-- <script src="./demo/lineChart.js"></script> -->
+  <!-- <script src="./demo/barChart.js"></script> -->
+
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Mengambil data dari server menggunakan fetch API
+    fetch('database/getAverageData.php') // Sesuaikan path jika lokasi berbeda
+      .then(response => response.json())
+      .then(data => {
+        if (data.error) {
+          console.error('Error:', data.error);
+          return;
+        }
+
+        // Set default font family dan warna
+        Chart.defaults.font.family =
+          '-apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif';
+        Chart.defaults.color = "#292b2c";
+
+        // Konfigurasi Line Chart
+        const ctx = document.getElementById('lineChart').getContext('2d');
+        const myLineChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: data.labels, // Hari
+            datasets: [{
+              label: 'Rata-rata Tinggi Air (cm)',
+              data: data.data, // Rata-rata tinggi_air
+              fill: false,
+              borderColor: 'rgba(75, 192, 192, 1)',
+              backgroundColor: 'rgba(75, 192, 192, 0.2)',
+              tension: 0.1
+            }]
+          },
+          options: {
+            responsive: true,
+
+            plugins: {
+              legend: {
+                position: 'top',
+              },
+              title: {
+                display: true,
+                text: 'Rata-Rata Tinggi Air per Hari',
+                font: {
+                  size: 18
+                }
+              },
+              tooltip: {
+                enabled: true,
+                callbacks: {
+                  label: function(context) {
+                    let label = context.dataset.label || '';
+                    let value = context.parsed.y || 0;
+                    return `${label}: ${value} cm`;
+                  }
+                }
+              }
+            },
+            scales: {
+              y: {
+                beginAtZero: true,
+                title: {
+                  display: true,
+                  text: 'Tinggi Air (cm)'
+                }
+              },
+              x: {
+                title: {
+                  display: true,
+                  text: 'Hari'
+                }
+              }
+            }
+          }
+        });
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+  });
+  </script>
+
+  <script>
+  // demo/barChart.js
+
+  document.addEventListener("DOMContentLoaded", function() {
+    // Mengambil data dari server menggunakan fetch API (sesuaikan jika diperlukan)
+    // fetch('demo/getBarData.php')
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         // Definisikan chart sesuai data
+    //     })
+    //     .catch(error => {
+    //         console.error('Error fetching data:', error);
+    //     });
+
+    // Contoh data statis
+    const data = {
+      labels: ["Tegangan"],
+      datasets: [{
+        label: "Tegangan (Voltage)",
+        data: [5],
+        backgroundColor: "rgba(2,117,216,1)",
+        borderColor: "rgba(2,117,216,1)",
+        borderWidth: 1,
+      }, ],
+    };
+
+    const config = {
+      type: "bar",
+      data: data,
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            display: true,
+          },
+          title: {
+            display: true,
+            text: "Jumlah Tegangan",
+            font: {
+              size: 18,
+            },
+          },
+          tooltip: {
+            enabled: true,
+            callbacks: {
+              label: function(context) {
+                let label = context.dataset.label || "";
+                let value = context.parsed.y || 0;
+                return `${label}: ${value} V`;
+              },
+            },
+          },
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: 12,
+            ticks: {
+              stepSize: 2,
+            },
+            title: {
+              display: true,
+              text: "Tegangan (V)",
+            },
+          },
+          x: {
+            title: {
+              display: true,
+              text: "Kategori",
+            },
+          },
+        },
+      },
+    };
+
+    const ctx = document.getElementById("barChart").getContext("2d");
+    const myBarChart = new Chart(ctx, config);
+  });
+  </script>
+
+
+</body></html>

@@ -1,0 +1,321 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
+:root {
+  --primary-color: #fff;
+  --bg-color: #11009e;
+  --text-color: #fff;
+  --sc-color: #000000;
+}
+
+*,
+::after,
+::before {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  font-size: 0.875rem;
+  overflow-y: scroll;
+  padding: 0;
+  /* height: 2000px; */
+}
+
+a {
+  cursor: pointer;
+  text-decoration: none;
+  font-family: "Poppins", sans-serif;
+}
+
+li {
+  list-style: none;
+}
+
+h4 {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.275rem;
+  color: var(--sc-color);
+}
+
+td,
+th {
+  font-size: 1rem;
+}
+
+.wrapper {
+  align-items: stretch;
+  display: flex;
+  width: 100%;
+}
+
+#sidebar {
+  width: 70px;
+  min-width: 70px;
+  background-color: var(--bg-color);
+  transition: all 0.35s ease-in-out;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  padding-top: 30vh;
+  position: fixed;
+  height: 100vh;
+}
+#content {
+  margin-left: 70px;
+}
+
+.main {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  width: 100%;
+  transition: all 0.35s ease-in-out;
+  background: var(--primary-color);
+}
+.continer-content {
+  padding-top: 5rem;
+}
+/* Sidebar Elements Style */
+.sidebar-logo {
+  padding: 1.15rem;
+}
+
+.sidebar-logo a {
+  color: var(--text-color);
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.sidebar-nav {
+  list-style: none;
+  margin-bottom: 0;
+  padding-left: 0;
+  margin-left: 0;
+}
+
+.sidebar-header {
+  color: var(--text-color);
+  padding: 1.5rem 1.5rem 0.375rem;
+  font-size: 1.2rem;
+}
+
+a.sidebar-link {
+  padding: 0.625rem 1.625rem;
+  color: var(--text-color);
+  font-size: 1.2rem;
+  position: relative;
+  display: block;
+}
+
+a.sidebar-link:hover {
+  background: rgb(255, 255, 255, 0.075);
+  border-left: 3px solid #3b7ddd;
+}
+
+#sidebar.expand .sidebar-link[data-bs-toggle="collapse"]::after {
+  border: solid;
+  border-width: 0 0.075rem 0.075rem 0;
+  content: "";
+  display: inline-block;
+  padding: 2px;
+  position: absolute;
+  right: 1.5rem;
+  top: 1.4rem;
+  transform: rotate(-135deg);
+  transition: all 0.2s ease-out;
+}
+
+#sidebar.expand .sidebar-link[data-bs-toggle="collapse"].collapsed::after {
+  transform: rotate(45deg);
+  transition: all 0.2s ease-out;
+}
+
+.avatar {
+  height: 40px;
+  width: 40px;
+}
+
+#navbar {
+  z-index: 500;
+  margin-left: 70px;
+  transition: all 0.35s ease-in-out;
+}
+
+#navbar.expand {
+  z-index: 500;
+  margin-left: 264px;
+}
+
+#sidebar.expand {
+  width: 264px;
+  min-width: 264px;
+  padding-top: 0vh;
+}
+
+#sidebar:not(.expand) a.sidebar-link span,
+#sidebar:not(.expand) .sidebar-header,
+#sidebar:not(.expand) .sidebar-logo {
+  display: none;
+}
+
+.sidebar-item {
+  position: relative;
+}
+
+#sidebar:not(.expand) .sidebar-item .sidebar-dropdown {
+  position: absolute;
+  top: 0;
+  left: 70px;
+  background-color: var(--bg-color);
+  padding: 0;
+  min-width: 10rem;
+  border-radius: 0 5px 5px 0;
+  border-bottom: 3px solid #b4b1b1;
+  display: none;
+}
+
+.registration-container {
+  max-width: 500px; /* Atur lebar maksimal untuk kontainer registrasi */
+  margin: auto; /* Pusatkan kontainer */
+  padding: 20px; /* Tambahkan padding */
+  border: 1px solid #ddd; /* Tambahkan border */
+  border-radius: 8px; /* Radius border */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Tambahkan bayangan */
+  background-color: white; /* Latar belakang putih */
+  margin-top: 100px; /* Tambahkan margin atas */
+}
+
+#sidebar:not(.expand) .sidebar-item:hover .has-dropdown + .sidebar-dropdown {
+  display: block;
+  max-height: 15rem;
+  opacity: 1;
+}
+
+#sidebar-toggle {
+  transition: transform 0.3s ease;
+}
+
+#sidebar-toggle:hover {
+  transform: scale(1.1);
+  /* color: var(--primary-color);
+  background-color: var(--bg-color); */
+}
+
+/* Tambahkan di style.css */
+canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+@media (max-width: 767px) {
+  body {
+    font-size: 12px;
+  }
+  .dataTables_wrapper {
+    overflow-x: auto;
+  }
+
+  table.dataTable {
+    width: 100% !important;
+    /* Memastikan tabel menggunakan 100% lebar */
+  }
+  #sidebar.expand {
+    width: 150px;
+    min-width: 150px;
+    padding-top: 0vh;
+  }
+  #navbar.expand {
+    z-index: 500;
+    margin-left: 150px;
+  }
+
+  #sidebar {
+    width: 0px;
+    min-width: 0px;
+    background-color: var(--bg-color);
+    transition: all 0.35s ease-in-out;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    padding-top: 30vh;
+    position: fixed;
+    height: 100vh;
+  }
+
+  #content {
+    margin: 0;
+  }
+
+  #navbar {
+    height: 50px;
+    padding: 30px 0;
+    z-index: 500;
+    margin-left: 0px;
+    transition: all 0.35s ease-in-out;
+  }
+
+  #navbar.expand {
+    margin-left: 70px;
+  }
+
+  #navbar:hover {
+    cursor: pointer;
+  }
+
+  #sidebar:not(.expand) .sidebar-link,
+  #sidebar:not(.expand) .sidebar-header,
+  #sidebar:not(.expand) .sidebar-logo {
+    display: none;
+  }
+
+  #sidebar.expand a.sidebar-link span,
+  .sidebar-header,
+  .sidebar-logo {
+    display: none;
+  }
+
+  #sidebar.expand {
+    width: 70px;
+    min-width: 70px;
+    background-color: var(--bg-color);
+    transition: all 0.35s ease-in-out;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    padding-top: 30vh;
+    position: fixed;
+    height: 100vh;
+  }
+
+  .sidebar-item {
+    position: relative;
+  }
+
+  #sidebar.expand .sidebar-item .sidebar-dropdown {
+    position: absolute;
+    top: 0;
+    left: 70px;
+    background-color: var(--bg-color);
+    padding: 0;
+    min-width: 10rem;
+    border-radius: 0 5px 5px 0;
+    border-bottom: 3px solid #b4b1b1;
+  }
+
+  #sidebar.expand .sidebar-link[data-bs-toggle="collapse"]::after {
+    display: none;
+  }
+
+  td,
+  th,
+  tr {
+    font-size: 0.8rem;
+  }
+
+  .btn-export {
+    font-size: 14px;
+  }
+} /* Media query untuk perangkat mobile */
